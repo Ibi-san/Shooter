@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    [SerializeField] private EnemyCharacter _enemyCharacter;
+    
     public void OnChange(List<DataChange> changes)
     {
         Vector3 position = transform.position;
@@ -24,6 +26,11 @@ public class EnemyController : MonoBehaviour
             }
         }
 
-        transform.position = position;
+        MoveEnemy(position);
+    }
+
+    public void MoveEnemy(Vector3 position)
+    {
+        _enemyCharacter.SetPosition(position);
     }
 }
