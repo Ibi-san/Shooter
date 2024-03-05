@@ -8,6 +8,8 @@ public class MultiplayerManager : ColyseusManager<MultiplayerManager>
     [SerializeField] private EnemyController _enemy;
     
     private ColyseusRoom<State> _room;
+    private string _roomName = "state_handler";
+
     protected override void Awake()
     {
         base.Awake();
@@ -18,7 +20,7 @@ public class MultiplayerManager : ColyseusManager<MultiplayerManager>
 
     private async void Connect()
     {
-        _room = await Instance.client.JoinOrCreate<State>("state_handler");
+        _room = await Instance.client.JoinOrCreate<State>(_roomName);
         
         _room.OnStateChange += OnChange;
     }
@@ -27,7 +29,7 @@ public class MultiplayerManager : ColyseusManager<MultiplayerManager>
     {
         if (isFirstState == false) return;
 
-        
+        _room.OnStateChange -= OnChange;
         
         state.players.ForEach((key, player) =>
         {
@@ -41,14 +43,14 @@ public class MultiplayerManager : ColyseusManager<MultiplayerManager>
 
     private void CreatePlayer(Player player)
     {
-        var position = new Vector3(player.x, 0, player.y);
+        var position = new Vector3(player.pX, player.pY, player.pZ);
         
         Instantiate(_player, position, Quaternion.identity);
     }
 
     private void CreateEnemy(string key, Player player)
     {
-        var position = new Vector3(player.x, 0, player.y);
+        var position = new Vector3(player.pX, player.pY, player.pZ);
         
         var enemy = Instantiate(_enemy, position, Quaternion.identity);
         player.OnChange += enemy.OnChange;
@@ -62,7 +64,8 @@ public class MultiplayerManager : ColyseusManager<MultiplayerManager>
     protected override void OnDestroy()
     {
         base.OnDestroy();
-
+        // _room.State.players.OnAdd -= CreateEnemy;
+        // _room.State.players.OnRemove -= RemoveEnemy;
         _room.Leave();
     }
 
