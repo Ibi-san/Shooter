@@ -26,7 +26,7 @@ public class EnemyCharacter : MonoBehaviour
 
     public void SetMovement(in Vector3 position, in Vector3 velocity, in float averageInterval)
     {
-        TargetPosition = position + velocity * averageInterval;
+        TargetPosition = position + (velocity * averageInterval);
         _velocityMagnitude = velocity.magnitude;
     }
 }

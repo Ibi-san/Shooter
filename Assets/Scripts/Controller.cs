@@ -22,9 +22,9 @@ public class Controller : MonoBehaviour
             { "pX", position.x },
             { "pY", position.y },
             { "pZ", position.z },
-            { "vX", position.x },
-            { "vY", position.y },
-            { "vZ", position.z }
+            { "vX", velocity.x },
+            { "vY", velocity.y },
+            { "vZ", velocity.z }
         };
         MultiplayerManager.Instance.SendMessage("move", data);
     }
