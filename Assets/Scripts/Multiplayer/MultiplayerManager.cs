@@ -64,8 +64,6 @@ public class MultiplayerManager : ColyseusManager<MultiplayerManager>
     protected override void OnDestroy()
     {
         base.OnDestroy();
-        // _room.State.players.OnAdd -= CreateEnemy;
-        // _room.State.players.OnRemove -= RemoveEnemy;
         _room.Leave();
     }
 
