@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MultiplayerManager : ColyseusManager<MultiplayerManager>
 {
-    [SerializeField] private GameObject _player;
+    [SerializeField] private PlayerCharacter _player;
     [SerializeField] private EnemyController _enemy;
     
     private ColyseusRoom<State> _room;
@@ -20,7 +20,12 @@ public class MultiplayerManager : ColyseusManager<MultiplayerManager>
 
     private async void Connect()
     {
-        _room = await Instance.client.JoinOrCreate<State>(_roomName);
+        Dictionary<string, object> data = new Dictionary<string, object>()
+        {
+            { "speed", _player.Speed }
+        };
+        
+        _room = await Instance.client.JoinOrCreate<State>(_roomName, data);
         
         _room.OnStateChange += OnChange;
     }
@@ -53,7 +58,7 @@ public class MultiplayerManager : ColyseusManager<MultiplayerManager>
         var position = new Vector3(player.pX, player.pY, player.pZ);
         
         var enemy = Instantiate(_enemy, position, Quaternion.identity);
-        player.OnChange += enemy.OnChange;
+        enemy.Init(player);
     }
 
     private void RemoveEnemy(string key, Player player)

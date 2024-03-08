@@ -39,9 +39,6 @@ public class PlayerCharacter : Character
 
     private void Move()
     {
-        // Vector3 direction = new Vector3(_inputH, 0, _inputV).normalized;
-        // transform.position += direction * (Time.deltaTime * _speed);
-
         Vector3 velocity = (transform.forward * _inputV + transform.right * _inputH).normalized * Speed;
         velocity.y = _rigidbody.velocity.y;
         Velocity = velocity;
@@ -69,9 +66,11 @@ public class PlayerCharacter : Character
         _head.localEulerAngles = new Vector3(_currentRotateX, 0, 0);
     }
 
-    public void GetMoveInfo(out Vector3 position, out Vector3 velocity)
+    public void GetMoveInfo(out Vector3 position, out Vector3 velocity, out float rotateX, out float rotateY)
     {
         position = transform.position;
         velocity = _rigidbody.velocity;
+        rotateX = _head.localEulerAngles.x;
+        rotateY = transform.eulerAngles.y;
     }
 }

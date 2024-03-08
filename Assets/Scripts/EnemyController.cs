@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Colyseus.Schema;
 using UnityEngine;
@@ -21,6 +22,20 @@ public class EnemyController : MonoBehaviour
         }
     }
     private float _lastReceivedTime;
+    private Player _player;
+
+    public void Init(Player player)
+    {
+        _player = player;
+        _character.SetSpeed(player.speed);
+        player.OnChange += OnChange;
+    }
+
+    public void Destroy()
+    {
+        _player.OnChange -= OnChange;
+        Destroy(gameObject);
+    }
 
     private void SaveReceivedTime()
     {
@@ -35,7 +50,7 @@ public class EnemyController : MonoBehaviour
         SaveReceivedTime();
         
         Vector3 position = _character.TargetPosition;
-        Vector3 velocity = Vector3.zero;
+        Vector3 velocity = _character.Velocity;
 
         foreach (var dataChange in changes)
         {
@@ -58,6 +73,12 @@ public class EnemyController : MonoBehaviour
                     break;
                 case "vZ":
                     velocity.z = (float)dataChange.Value;
+                    break;
+                case "rX":
+                    _character.SetRotateX((float)dataChange.Value);
+                    break;
+                case "rY":
+                    _character.SetRotateY((float)dataChange.Value);
                     break;
                 default:
                     Debug.LogWarning("Doesn't handle field change" + dataChange.Field);
