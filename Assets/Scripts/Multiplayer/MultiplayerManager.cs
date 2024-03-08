@@ -73,4 +73,8 @@ public class MultiplayerManager : ColyseusManager<MultiplayerManager>
     }
 
     public void SendMessage(string key, Dictionary<string, object> data) => _room.Send(key, data);
+
+    public void SendMessage(string key, string data) => _room.Send(key, data);
+
+    public string GetSessionId() => _room.SessionId;
 }
