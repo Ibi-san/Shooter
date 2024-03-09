@@ -9,6 +9,7 @@ public class MultiplayerManager : ColyseusManager<MultiplayerManager>
     
     private ColyseusRoom<State> _room;
     private string _roomName = "state_handler";
+    private Dictionary<string, EnemyController> _enemies = new Dictionary<string, EnemyController>();
 
     protected override void Awake()
     {
@@ -28,6 +29,21 @@ public class MultiplayerManager : ColyseusManager<MultiplayerManager>
         _room = await Instance.client.JoinOrCreate<State>(_roomName, data);
         
         _room.OnStateChange += OnChange;
+        
+        _room.OnMessage<string>("Shoot", ApplyShoot);
+    }
+
+    private void ApplyShoot(string jsonShootInfo)
+    {
+        ShootInfo shootInfo = JsonUtility.FromJson<ShootInfo>(jsonShootInfo);
+
+        if (_enemies.ContainsKey(shootInfo.key) == false)
+        {
+            Debug.LogError("No enemy, but he tried to shoot");
+            return;
+        }
+        
+        _enemies[shootInfo.key].Shoot(shootInfo);
     }
 
     private void OnChange(State state, bool isFirstState)
@@ -59,11 +75,17 @@ public class MultiplayerManager : ColyseusManager<MultiplayerManager>
         
         var enemy = Instantiate(_enemy, position, Quaternion.identity);
         enemy.Init(player);
+        
+        _enemies.Add(key,enemy);
     }
 
     private void RemoveEnemy(string key, Player player)
     {
+        if(_enemies.ContainsKey(key) == false) return;
         
+        var enemy = _enemies[key];
+        enemy.Destroy();
+        _enemies.Remove(key);
     }
 
     protected override void OnDestroy()
