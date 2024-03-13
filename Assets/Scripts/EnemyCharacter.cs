@@ -9,7 +9,7 @@ public class EnemyCharacter : Character
 
     private float _targetRotationX;
     private float _targetRotationY;
-
+    private float _rotateSpeed = 360;
     private void Start()
     {
         TargetPosition = transform.position;
@@ -44,7 +44,7 @@ public class EnemyCharacter : Character
             Vector3 eulerRotationX = _head.localEulerAngles;
             eulerRotationX.x = _targetRotationX;
             Quaternion newRotationX = Quaternion.Euler(eulerRotationX);
-            _head.localRotation = Quaternion.RotateTowards(_head.localRotation, newRotationX, 90 * Time.deltaTime);
+            _head.localRotation = Quaternion.RotateTowards(_head.localRotation, newRotationX, _rotateSpeed * Time.deltaTime);
         }
         else
         {
@@ -59,7 +59,7 @@ public class EnemyCharacter : Character
             Vector3 eulerRotationY = transform.localEulerAngles;
             eulerRotationY.y = _targetRotationY;
             Quaternion newRotationY = Quaternion.Euler(eulerRotationY);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, newRotationY, 90 * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, newRotationY, _rotateSpeed * Time.deltaTime);
         }
         else
         {

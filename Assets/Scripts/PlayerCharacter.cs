@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerCharacter : Character
 {
     [SerializeField] private Rigidbody _rigidbody;
+    [SerializeField] private CapsuleCollider _collider;
     [SerializeField] private Transform _head;
     [SerializeField] private Transform _cameraPoint;
     [SerializeField] private float _maxHeadAngle = 90;
@@ -10,11 +11,13 @@ public class PlayerCharacter : Character
     [SerializeField] private float _jumpForce = 50;
     [SerializeField] private CheckFly _checkFly;
     [SerializeField] private float _jumpDelay = 0.2f;
+    [SerializeField] private Animator _animator;
     private float _inputH;
     private float _inputV;
     private float _rotateY;
     private float _currentRotateX;
     private float _jumpTime;
+    private static readonly int _crouch = Animator.StringToHash("Crouch");
 
     private void Start()
     {
@@ -72,5 +75,22 @@ public class PlayerCharacter : Character
         velocity = _rigidbody.velocity;
         rotateX = _head.localEulerAngles.x;
         rotateY = transform.eulerAngles.y;
+    }
+
+    public void ToggleCrouch()
+    {
+        Crouch = !Crouch;
+        if (Crouch)
+        {
+            _collider.center = new Vector3(0, 0.75f, 0);
+            _collider.height = 1.5f;
+            _animator.SetBool(_crouch, true);
+        }
+        else
+        {
+            _collider.center = new Vector3(0, 1f, 0);
+            _collider.height = 2f;
+            _animator.SetBool(_crouch, false);
+        }
     }
 }

@@ -24,12 +24,17 @@ public class Controller : MonoBehaviour
         bool isShoot = Input.GetMouseButton(0);
         
         bool space = Input.GetKeyDown(KeyCode.Space);
+
+        bool crouch = Input.GetKeyDown(KeyCode.LeftControl);
         
         _player.SetInput(h, v, mouseX * _mouseSensetivity);
         _player.RotateX(-mouseY * _mouseSensetivity);
+        
         if (space) _player.Jump();
         
         if (isShoot && _gun.TryShoot(out ShootInfo shootInfo)) SendShoot(ref shootInfo);
+
+        if (crouch) _player.ToggleCrouch();
 
         SendMove();
     }
