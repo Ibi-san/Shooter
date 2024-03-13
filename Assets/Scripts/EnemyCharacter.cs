@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class EnemyCharacter : Character
@@ -6,12 +7,24 @@ public class EnemyCharacter : Character
     public Vector3 TargetPosition { get; private set; } = Vector3.zero;
     private float _velocityMagnitude;
 
+    private float _targetRotationX;
+    private float _targetRotationY;
+
     private void Start()
     {
         TargetPosition = transform.position;
     }
 
     private void Update()
+    {
+        Move();
+
+        RotateHead();
+
+        RotateBody();
+    }
+
+    private void Move()
     {
         if (_velocityMagnitude > 0.1f)
         {
@@ -21,6 +34,36 @@ public class EnemyCharacter : Character
         else
         {
             transform.position = TargetPosition;
+        }
+    }
+
+    private void RotateHead()
+    {
+        if (Math.Abs(_head.localEulerAngles.x - _targetRotationX) > 0.1f)
+        {
+            Vector3 eulerRotationX = _head.localEulerAngles;
+            eulerRotationX.x = _targetRotationX;
+            Quaternion newRotationX = Quaternion.Euler(eulerRotationX);
+            _head.localRotation = Quaternion.RotateTowards(_head.localRotation, newRotationX, 90 * Time.deltaTime);
+        }
+        else
+        {
+            _head.localEulerAngles = new Vector3(_targetRotationX, 0, 0);
+        }
+    }
+
+    private void RotateBody()
+    {
+        if (Math.Abs(transform.localEulerAngles.y - _targetRotationY) > 0.1f)
+        {
+            Vector3 eulerRotationY = transform.localEulerAngles;
+            eulerRotationY.y = _targetRotationY;
+            Quaternion newRotationY = Quaternion.Euler(eulerRotationY);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, newRotationY, 90 * Time.deltaTime);
+        }
+        else
+        {
+            transform.localEulerAngles = new Vector3(0, _targetRotationY, 0);
         }
     }
 
@@ -35,11 +78,11 @@ public class EnemyCharacter : Character
 
     public void SetRotateX(float value)
     {
-        _head.localEulerAngles = new Vector3(value, 0, 0);
+        _targetRotationX = value;
     }
     
     public void SetRotateY(float value)
     {
-        transform.localEulerAngles = new Vector3(0, value, 0);
+        _targetRotationY = value;
     }
 }

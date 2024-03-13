@@ -123,6 +123,23 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &204802988 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3213908784548711609, guid: 61e20a7a817b70b45af90c443a894c29, type: 3}
+  m_PrefabInstance: {fileID: 512504803}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &204802990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204802988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 070733a6a253a49449e9ee6163bbad1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &512504803
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -136,6 +153,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 423919687589251720, guid: 61e20a7a817b70b45af90c443a894c29, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 423919687589251725, guid: 61e20a7a817b70b45af90c443a894c29, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 423919687589251726, guid: 61e20a7a817b70b45af90c443a894c29, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 423919687589251727, guid: 61e20a7a817b70b45af90c443a894c29, type: 3}
@@ -180,6 +205,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 423919687589251727, guid: 61e20a7a817b70b45af90c443a894c29, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1898847854626323442, guid: 61e20a7a817b70b45af90c443a894c29, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3750558724510517392, guid: 61e20a7a817b70b45af90c443a894c29, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445963774692482557, guid: 61e20a7a817b70b45af90c443a894c29, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8714278478328705602, guid: 61e20a7a817b70b45af90c443a894c29, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
