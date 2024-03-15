@@ -10,6 +10,7 @@ public class EnemyCharacter : Character
     private float _targetRotationX;
     private float _targetRotationY;
     private float _rotateSpeed = 360;
+
     private void Start()
     {
         TargetPosition = transform.position;
@@ -39,32 +40,18 @@ public class EnemyCharacter : Character
 
     private void RotateHead()
     {
-        if (Math.Abs(_head.localEulerAngles.x - _targetRotationX) > 0.1f)
-        {
-            Vector3 eulerRotationX = _head.localEulerAngles;
-            eulerRotationX.x = _targetRotationX;
-            Quaternion newRotationX = Quaternion.Euler(eulerRotationX);
-            _head.localRotation = Quaternion.RotateTowards(_head.localRotation, newRotationX, _rotateSpeed * Time.deltaTime);
-        }
-        else
-        {
-            _head.localEulerAngles = new Vector3(_targetRotationX, 0, 0);
-        }
+        Vector3 targetEulerRotation = _head.localEulerAngles;
+        targetEulerRotation.x = _targetRotationX;
+        Quaternion newHeadRotation = Quaternion.Euler(targetEulerRotation);
+        _head.localRotation = Quaternion.RotateTowards(_head.localRotation, newHeadRotation, _rotateSpeed * Time.deltaTime);
     }
 
     private void RotateBody()
     {
-        if (Math.Abs(transform.localEulerAngles.y - _targetRotationY) > 0.1f)
-        {
-            Vector3 eulerRotationY = transform.localEulerAngles;
-            eulerRotationY.y = _targetRotationY;
-            Quaternion newRotationY = Quaternion.Euler(eulerRotationY);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, newRotationY, _rotateSpeed * Time.deltaTime);
-        }
-        else
-        {
-            transform.localEulerAngles = new Vector3(0, _targetRotationY, 0);
-        }
+        Vector3 targetEulerRotation = transform.localEulerAngles;
+        targetEulerRotation.y = _targetRotationY;
+        Quaternion newBodyRotation = Quaternion.Euler(targetEulerRotation);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, newBodyRotation, _rotateSpeed * Time.deltaTime);
     }
 
     public void SetSpeed(float value) => Speed = value;
@@ -80,7 +67,7 @@ public class EnemyCharacter : Character
     {
         _targetRotationX = value;
     }
-    
+
     public void SetRotateY(float value)
     {
         _targetRotationY = value;

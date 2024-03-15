@@ -1,5 +1,53 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1031153322
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1031153323}
+  - component: {fileID: 1031153324}
+  m_Layer: 0
+  m_Name: CheckTop
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1031153323
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1031153322}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0.022257527, z: 0.7658441}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4445963774692482557}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1031153324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1031153322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ec655a1d2cf49c6943f51c82942dd7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _radius: 0.1
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &423919687589251720
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,8 +139,9 @@ MonoBehaviour:
   _minHeadAngle: -90
   _jumpForce: 5
   _checkFly: {fileID: 3750558724510517392}
+  _checkTop: {fileID: 1031153324}
   _jumpDelay: 0.2
-  _animator: {fileID: 165585585}
+  _characterAnimation: {fileID: 8714278478328705602}
 --- !u!114 &423919687589251725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,6 +157,7 @@ MonoBehaviour:
   _player: {fileID: 423919687589251726}
   _gun: {fileID: 7709888661176480650}
   _mouseSensetivity: 2
+  _crouchIsToogle: 1
 --- !u!114 &3750558724510517392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,7 +173,7 @@ MonoBehaviour:
   _radius: 0.2
   _layerMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 192
   _coyoteTime: 0.15
 --- !u!114 &8714278478328705602
 MonoBehaviour:
@@ -138,7 +188,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _checkFly: {fileID: 3750558724510517392}
-  _animator: {fileID: 8951836608390202651}
+  _footAnimator: {fileID: 8951836608390202651}
+  _bodyAnimator: {fileID: 165585585}
   _character: {fileID: 423919687589251726}
 --- !u!114 &7709888661176480650
 MonoBehaviour:

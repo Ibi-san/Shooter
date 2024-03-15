@@ -10,14 +10,14 @@ public class PlayerCharacter : Character
     [SerializeField] private float _minHeadAngle = -90;
     [SerializeField] private float _jumpForce = 50;
     [SerializeField] private CheckFly _checkFly;
+    [SerializeField] private CheckTop _checkTop;
     [SerializeField] private float _jumpDelay = 0.2f;
-    [SerializeField] private Animator _animator;
+    [SerializeField] private CharacterAnimation _characterAnimation;
     private float _inputH;
     private float _inputV;
     private float _rotateY;
     private float _currentRotateX;
     private float _jumpTime;
-    private static readonly int _crouch = Animator.StringToHash("Crouch");
 
     private void Start()
     {
@@ -52,9 +52,9 @@ public class PlayerCharacter : Character
     {
         if (_checkFly.IsFly) return;
         if (Time.time - _jumpTime < _jumpDelay) return;
-        
+
         _jumpTime = Time.time;
-        _rigidbody.AddForce(0,_jumpForce,0, ForceMode.VelocityChange);
+        _rigidbody.AddForce(0, _jumpForce, 0, ForceMode.VelocityChange);
     }
 
     private void RotateY()
@@ -77,20 +77,24 @@ public class PlayerCharacter : Character
         rotateY = transform.eulerAngles.y;
     }
 
-    public void ToggleCrouch()
+    public void TryCrouch()
     {
-        Crouch = !Crouch;
-        if (Crouch)
-        {
-            _collider.center = new Vector3(0, 0.75f, 0);
-            _collider.height = 1.5f;
-            _animator.SetBool(_crouch, true);
-        }
-        else
-        {
-            _collider.center = new Vector3(0, 1f, 0);
-            _collider.height = 2f;
-            _animator.SetBool(_crouch, false);
-        }
+        //If player can't stand, he's already crouching. May cause bugs if he's in small room where roof near head. Need to fix
+        if (_checkTop.CanStand == false)
+            return;
+
+        _collider.center = new Vector3(0, 0.75f, 0);
+        _collider.height = 1.5f;
+        _characterAnimation.SetCrouch(true);
+    }
+
+    public void StandUp()
+    {
+        if (_checkTop.CanStand == false)
+            return;
+        
+        _collider.center = new Vector3(0, 1f, 0);
+        _collider.height = 2f;
+        _characterAnimation.SetCrouch(false);
     }
 }

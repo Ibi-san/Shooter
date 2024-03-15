@@ -80,6 +80,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _character: {fileID: 8474567751470943271}
+  _characterAnimation: {fileID: 1979886780606942701}
   _gun: {fileID: -7539676310303801655}
 --- !u!114 &1979886780606942701
 MonoBehaviour:
@@ -94,7 +95,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _checkFly: {fileID: 4665954924461739596}
-  _animator: {fileID: 7028866082166488908}
+  _footAnimator: {fileID: 7028866082166488908}
+  _bodyAnimator: {fileID: 6873460871455846315}
   _character: {fileID: 8474567751470943271}
 --- !u!114 &4665954924461739596
 MonoBehaviour:
