@@ -3,7 +3,6 @@ using UnityEngine;
 public class PlayerCharacter : Character
 {
     [SerializeField] private Rigidbody _rigidbody;
-    [SerializeField] private CapsuleCollider _collider;
     [SerializeField] private Transform _head;
     [SerializeField] private Transform _cameraPoint;
     [SerializeField] private float _maxHeadAngle = 90;
@@ -12,7 +11,6 @@ public class PlayerCharacter : Character
     [SerializeField] private CheckFly _checkFly;
     [SerializeField] private CheckTop _checkTop;
     [SerializeField] private float _jumpDelay = 0.2f;
-    [SerializeField] private CharacterAnimation _characterAnimation;
     private float _inputH;
     private float _inputV;
     private float _rotateY;
@@ -83,18 +81,14 @@ public class PlayerCharacter : Character
         if (_checkTop.CanStand == false)
             return;
 
-        _collider.center = new Vector3(0, 0.75f, 0);
-        _collider.height = 1.5f;
-        _characterAnimation.SetCrouch(true);
+        Crouch();
     }
 
-    public void StandUp()
+    public void TryStandUp()
     {
         if (_checkTop.CanStand == false)
             return;
         
-        _collider.center = new Vector3(0, 1f, 0);
-        _collider.height = 2f;
-        _characterAnimation.SetCrouch(false);
+        StandUp();
     }
 }

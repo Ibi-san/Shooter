@@ -21,5 +21,5 @@ public class CharacterAnimation : MonoBehaviour
         _footAnimator.SetBool(Grounded, _checkFly.IsFly == false);
     }
 
-    public void SetCrouch(bool isCrouch) => _bodyAnimator.SetBool(Crouch, isCrouch);
+    public void AnimateCrouch(bool isCrouch) => _bodyAnimator.SetBool(Crouch, isCrouch);
 }

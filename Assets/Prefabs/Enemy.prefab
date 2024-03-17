@@ -65,6 +65,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 138e860e041c9804bbbd54462481d530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _collider: {fileID: 1592009343739722223}
+  CharacterAnimation: {fileID: 1979886780606942701}
   <Speed>k__BackingField: 2
   _head: {fileID: 5695779328742424235}
 --- !u!114 &6232929252532405892
@@ -80,7 +82,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _character: {fileID: 8474567751470943271}
-  _characterAnimation: {fileID: 1979886780606942701}
   _gun: {fileID: -7539676310303801655}
 --- !u!114 &1979886780606942701
 MonoBehaviour:

@@ -46,7 +46,7 @@ public class Controller : MonoBehaviour
         }
         else
         {
-            _player.StandUp();
+            _player.TryStandUp();
             SendCrouch(false);
         }
 

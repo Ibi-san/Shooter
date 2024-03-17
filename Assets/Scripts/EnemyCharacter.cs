@@ -43,7 +43,8 @@ public class EnemyCharacter : Character
         Vector3 targetEulerRotation = _head.localEulerAngles;
         targetEulerRotation.x = _targetRotationX;
         Quaternion newHeadRotation = Quaternion.Euler(targetEulerRotation);
-        _head.localRotation = Quaternion.RotateTowards(_head.localRotation, newHeadRotation, _rotateSpeed * Time.deltaTime);
+        _head.localRotation =
+            Quaternion.RotateTowards(_head.localRotation, newHeadRotation, _rotateSpeed * Time.deltaTime);
     }
 
     private void RotateBody()
@@ -51,7 +52,8 @@ public class EnemyCharacter : Character
         Vector3 targetEulerRotation = transform.localEulerAngles;
         targetEulerRotation.y = _targetRotationY;
         Quaternion newBodyRotation = Quaternion.Euler(targetEulerRotation);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, newBodyRotation, _rotateSpeed * Time.deltaTime);
+        transform.rotation =
+            Quaternion.RotateTowards(transform.rotation, newBodyRotation, _rotateSpeed * Time.deltaTime);
     }
 
     public void SetSpeed(float value) => Speed = value;
@@ -71,5 +73,12 @@ public class EnemyCharacter : Character
     public void SetRotateY(float value)
     {
         _targetRotationY = value;
+    }
+
+    public void SetCrouch(bool isCrouch)
+    {
+        if (isCrouch) Crouch();
+        else StandUp();
+        CharacterAnimation.AnimateCrouch(isCrouch);
     }
 }

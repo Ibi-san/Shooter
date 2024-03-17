@@ -5,7 +5,6 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] private EnemyCharacter _character;
-    [SerializeField] private CharacterAnimation _characterAnimation;
     [SerializeField] private EnemyGun _gun;
     private List<float> _receivedTimeInterval = new() { 0, 0, 0, 0, 0 };
     private float AverageInterval
@@ -46,7 +45,7 @@ public class EnemyController : MonoBehaviour
         _gun.Shoot(position, velocity);
     }
 
-    public void Crouch(in bool isCrouch) => _characterAnimation.SetCrouch(isCrouch);
+    public void Crouch(in bool isCrouch) => _character.SetCrouch(isCrouch);
 
     private void SaveReceivedTime()
     {
