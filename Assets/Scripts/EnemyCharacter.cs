@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Multiplayer;
 using UnityEngine;
 
 public class EnemyCharacter : Character
@@ -40,6 +41,11 @@ public class EnemyCharacter : Character
         maxHealth = value;
         _health.SetMax(value);
         _health.SetCurrent(value);
+    }
+
+    public void RestoreHP(int newValue)
+    {
+        _health.SetCurrent(newValue);
     }
 
     public void SetMovement(in Vector3 position, in Vector3 velocity, in float averageInterval)

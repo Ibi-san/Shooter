@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Colyseus.Schema;
+using Multiplayer;
 using UnityEngine;
 
 public class PlayerCharacter : Character
@@ -86,12 +87,15 @@ public class PlayerCharacter : Character
         {
             switch (dataChange.Field)
             {
+                case "loss":
+                    MultiplayerManager.Instance.LossCounter.SetPlayerLoss((byte)dataChange.Value);
+                    break;
                 case "currentHP":
                     _health.SetCurrent((sbyte)dataChange.Value);
                     break;
-                default:
+                /*default:
                     Debug.LogWarning("Doesn't handle field change" + dataChange.Field);
-                    break;
+                    break;*/
             }
         }
     }
