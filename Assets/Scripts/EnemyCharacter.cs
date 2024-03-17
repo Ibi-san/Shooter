@@ -1,11 +1,19 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyCharacter : Character
 {
+    private string _sessionID;
+    
     [SerializeField] private Health _health;
     [SerializeField] private Transform _head;
     public Vector3 TargetPosition { get; private set; } = Vector3.zero;
     private float _velocityMagnitude;
+
+    public void Init(string sessionID)
+    {
+        _sessionID = sessionID;
+    }
 
     private void Start()
     {
@@ -54,5 +62,12 @@ public class EnemyCharacter : Character
     public void ApplyDamage(int damage)
     {
         _health.ApplyDamage(damage);
+
+        Dictionary<string, object> data = new Dictionary<string, object>()
+        {
+            { "id", _sessionID},
+            { "value", damage }
+        };
+        MultiplayerManager.Instance.SendMessage("damage", data);
     }
 }

@@ -25,11 +25,13 @@ public class EnemyController : MonoBehaviour
     private float _lastReceivedTime;
     private Player _player;
 
-    public void Init(Player player)
+    public void Init(string key, Player player)
     {
+        _character.Init(key);
+        
         _player = player;
         _character.SetSpeed(player.speed);
-        _character.SetMaxHP(player.hp);
+        _character.SetMaxHP(player.maxHP);
         player.OnChange += OnChange;
     }
 

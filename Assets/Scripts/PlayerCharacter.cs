@@ -1,7 +1,10 @@
+using System.Collections.Generic;
+using Colyseus.Schema;
 using UnityEngine;
 
 public class PlayerCharacter : Character
 {
+    [SerializeField] private Health _health;
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private Transform _head;
     [SerializeField] private Transform _cameraPoint;
@@ -22,6 +25,9 @@ public class PlayerCharacter : Character
         camera.parent = _cameraPoint;
         camera.localPosition = Vector3.zero;
         camera.localRotation = Quaternion.identity;
+
+        _health.SetMax(maxHealth);
+        _health.SetCurrent(maxHealth);
     }
 
     private void FixedUpdate()
@@ -72,5 +78,21 @@ public class PlayerCharacter : Character
         velocity = _rigidbody.velocity;
         rotateX = _head.localEulerAngles.x;
         rotateY = transform.eulerAngles.y;
+    }
+
+    public void OnChange(List<DataChange> changes)
+    {
+        foreach (var dataChange in changes)
+        {
+            switch (dataChange.Field)
+            {
+                case "currentHP":
+                    _health.SetCurrent((sbyte)dataChange.Value);
+                    break;
+                default:
+                    Debug.LogWarning("Doesn't handle field change" + dataChange.Field);
+                    break;
+            }
+        }
     }
 }
