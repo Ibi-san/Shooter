@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerGun : Gun
 {
-    
+    [SerializeField] private int _damage;
     [SerializeField] private Transform _bulletPoint;
     [SerializeField] private float _bulletSpeed;
     [SerializeField] private float _shootDelay;
@@ -19,7 +19,7 @@ public class PlayerGun : Gun
         Vector3 velocity = _bulletPoint.forward * _bulletSpeed;
         
         _lastShootTime = Time.time;
-        Instantiate(BulletPrefab, _bulletPoint.position, _bulletPoint.rotation).Init(velocity);
+        Instantiate(BulletPrefab, _bulletPoint.position, _bulletPoint.rotation).Init(velocity, _damage);
         ShootEvent?.Invoke();
 
         info.pX = position.x;

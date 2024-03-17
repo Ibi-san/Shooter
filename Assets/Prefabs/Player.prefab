@@ -82,7 +82,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02f93bda1acd787499a47aaf71c68653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Speed>k__BackingField: 4
+  <maxHealth>k__BackingField: 10
+  <speed>k__BackingField: 2
   _rigidbody: {fileID: 3559890147914310696}
   _head: {fileID: 4445963774692482557}
   _cameraPoint: {fileID: 761536680129104512}
@@ -151,6 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BulletPrefab: {fileID: 7495653152814660974, guid: 9fce2b844a4aec948a770cdea42ec85a, type: 3}
+  _damage: 1
   _bulletPoint: {fileID: 654927572357131938}
   _bulletSpeed: 10
   _shootDelay: 0.2

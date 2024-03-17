@@ -39,7 +39,7 @@ public class PlayerCharacter : Character
 
     private void Move()
     {
-        Vector3 velocity = (transform.forward * _inputV + transform.right * _inputH).normalized * Speed;
+        Vector3 velocity = (transform.forward * _inputV + transform.right * _inputH).normalized * speed;
         velocity.y = _rigidbody.velocity.y;
         Velocity = velocity;
         _rigidbody.velocity = Velocity;
