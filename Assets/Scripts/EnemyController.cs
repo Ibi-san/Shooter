@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Colyseus.Schema;
 using Multiplayer;
-using Multiplayer.generated;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -71,7 +70,7 @@ public class EnemyController : MonoBehaviour
             switch (dataChange.Field)
             {
                 case "loss":
-                    MultiplayerManager.Instance.LossCounter.SetEnemyLoss((byte)dataChange.Value);
+                    MultiplayerManager.Instance._lossCounter.SetEnemyLoss((byte)dataChange.Value);
                     break;
                 case "currentHP":
                     if ((sbyte)dataChange.Value > (sbyte)dataChange.PreviousValue)
