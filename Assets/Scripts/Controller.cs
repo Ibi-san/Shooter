@@ -19,10 +19,13 @@ public class Controller : MonoBehaviour
         _hideCursor = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        _gun.Equip(Weapon.MachineGun);
     }
 
     private void Update()
     {
+        SwitchWeapon();
+        
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             _hideCursor = !_hideCursor;
@@ -54,6 +57,16 @@ public class Controller : MonoBehaviour
         if (isShoot && _gun.TryShoot(out ShootInfo shootInfo)) SendShoot(ref shootInfo);
 
         SendMove();
+    }
+
+    private void SwitchWeapon()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            _gun.Equip(Weapon.MachineGun);
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            _gun.Equip(Weapon.SniperRifle);
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+            _gun.Equip(Weapon.RocketLauncher);
     }
 
     private void SendShoot(ref ShootInfo shootInfo)
