@@ -7,12 +7,26 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private float _lifeTime = 5f;
     [SerializeField] private Rigidbody _rigidbody;
+    [SerializeField] private GameObject _bulletModel;
+    [SerializeField] private GameObject _rocketModel;
+    [SerializeField] private float _radius;
+    [SerializeField] private GameObject _explosionParticle;
     private int _damage;
+    private bool _isRocket;
     
-    public void Init(Vector3 velocity, int damage = 0)
+    public void Init(Vector3 velocity, int damage = 0, bool rocket = false)
     {
         _damage = damage;
         _rigidbody.velocity = velocity;
+
+        if (rocket)
+        {
+            _isRocket = true;
+            _bulletModel.SetActive(false);
+            _rocketModel.SetActive(true);
+            _rigidbody.useGravity = true;
+        }
+        
         StartCoroutine(DelayDestroy());
     }
 
@@ -29,11 +43,36 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.TryGetComponent(out EnemyCharacter enemy))
+        if (_isRocket)
         {
-            enemy.ApplyDamage(_damage);
+            Explode();
+            Destroy();
         }
-        
-        Destroy();
+        else
+        {
+            if (collision.collider.TryGetComponent(out EnemyCharacter enemy))
+                enemy.ApplyDamage(_damage);
+
+            Destroy();
+        }
     }
+    
+    private void Explode()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, _radius);
+        foreach (var hitCollider in hitColliders)
+        {
+            if (hitCollider.TryGetComponent(out EnemyCharacter enemy))
+                enemy.ApplyDamage(_damage);
+        }
+
+        Instantiate(_explosionParticle, transform.position, Quaternion.identity);
+    }
+    
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, _radius);
+    }
+#endif
 }

@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerGun : Gun
 {
@@ -15,6 +17,8 @@ public class PlayerGun : Gun
     [SerializeField] private float _machineBulletSpeed = 10f;
     [SerializeField] private float _rocketLaunchSpeed = 30f;
     [SerializeField] private float _sniperBulletSpeed = 80f;
+    [SerializeField] private CanvasGroup _reloadCanvas;
+    [SerializeField] private Image _reloadProgress;
     private GameObject _currentWeapon;
     private float _shootDelay;
     private float _bulletSpeed;
@@ -34,7 +38,22 @@ public class PlayerGun : Gun
         Vector3 velocity = _bulletPoint.forward * _bulletSpeed;
 
         _lastShootTime = Time.time;
-        Instantiate(BulletPrefab, _bulletPoint.position, _bulletPoint.rotation).Init(velocity, _damage);
+        if (_equippedWeapon == Weapon.RocketLauncher)
+        {
+            _reloadCanvas.alpha = 1;
+            StartCoroutine(Reloading());
+            Instantiate(BulletPrefab, _bulletPoint.position, _bulletPoint.rotation).Init(velocity, _damage, true);
+        }
+        else
+        {
+            if (_equippedWeapon == Weapon.SniperRifle)
+            {
+                _reloadCanvas.alpha = 1;
+                StartCoroutine(Reloading());
+            }
+            Instantiate(BulletPrefab, _bulletPoint.position, _bulletPoint.rotation).Init(velocity, _damage);
+        }
+
         ShootEvent?.Invoke();
 
         info.pX = position.x;
@@ -43,11 +62,6 @@ public class PlayerGun : Gun
         info.dX = velocity.x;
         info.dY = velocity.y;
         info.dZ = velocity.z;
-        
-        // if (_equippedWeapon == Weapon.RocketLauncher)
-        //     ShootRocketLauncher(ref info);
-        // if (_equippedWeapon == Weapon.SniperRifle)
-        //     ShootSniperRifle(ref info);
 
         return true;
     }
@@ -65,27 +79,34 @@ public class PlayerGun : Gun
                 _currentWeapon = _machineGun;
                 break;
             case Weapon.SniperRifle:
+                StopAllCoroutines();
+                _reloadCanvas.alpha = 1;
                 _shootDelay = _sniperRifleDelay;
                 _bulletSpeed = _sniperBulletSpeed;
                 _sniperRifle.SetActive(true);
                 _currentWeapon = _sniperRifle;
+                StartCoroutine(Reloading());
                 break;
             case Weapon.RocketLauncher:
+                StopAllCoroutines();
+                _reloadCanvas.alpha = 1;
                 _shootDelay = _rocketLauncherDelay;
                 _bulletSpeed = _rocketLaunchSpeed;
                 _rocketLauncher.SetActive(true);
                 _currentWeapon = _rocketLauncher;
+                StartCoroutine(Reloading());
                 break;
         }
     }
 
-    private void ShootRocketLauncher(ref ShootInfo info)
+    private IEnumerator Reloading()
     {
-        
-    }
+        while (Time.time - _lastShootTime < _shootDelay)
+        {
+            _reloadProgress.fillAmount = (Time.time - _lastShootTime) / _shootDelay;
+            yield return new WaitForEndOfFrame();
+        }
 
-    private void ShootSniperRifle(ref ShootInfo info)
-    {
-        
+        _reloadCanvas.alpha = 0;
     }
 }
