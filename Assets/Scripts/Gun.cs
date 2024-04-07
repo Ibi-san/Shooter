@@ -9,7 +9,7 @@ public abstract class Gun : MonoBehaviour
 
 public enum Weapon
 {
-    MachineGun,
-    SniperRifle,
-    RocketLauncher
+    MachineGun = 0,
+    SniperRifle = 1,
+    RocketLauncher = 2
 }

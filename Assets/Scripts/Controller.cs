@@ -62,11 +62,32 @@ public class Controller : MonoBehaviour
     private void SwitchWeapon()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
             _gun.Equip(Weapon.MachineGun);
+            SendWeapon(Weapon.MachineGun);
+        }
+
         if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
             _gun.Equip(Weapon.SniperRifle);
+            SendWeapon(Weapon.SniperRifle);
+        }
+
         if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
             _gun.Equip(Weapon.RocketLauncher);
+            SendWeapon(Weapon.RocketLauncher);
+        }
+    }
+
+    private void SendWeapon(Weapon weaponID)
+    {
+        WeaponInfo weaponInfo = new WeaponInfo();
+        weaponInfo.key = _multiplayerManager.GetSessionId();
+        weaponInfo.weaponID = (int)weaponID;
+        string jsonWeaponInfo = JsonUtility.ToJson(weaponInfo);
+        
+        _multiplayerManager.SendMessage("weapon", jsonWeaponInfo);
     }
 
     private void SendShoot(ref ShootInfo shootInfo)
@@ -137,4 +158,11 @@ public struct ShootInfo
     public float pX;
     public float pY;
     public float pZ;
+}
+
+[Serializable]
+public struct WeaponInfo
+{
+    public string key;
+    public int weaponID;
 }

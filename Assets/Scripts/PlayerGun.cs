@@ -42,7 +42,7 @@ public class PlayerGun : Gun
         {
             _reloadCanvas.alpha = 1;
             StartCoroutine(Reloading());
-            Instantiate(BulletPrefab, _bulletPoint.position, _bulletPoint.rotation).Init(velocity, _damage, true);
+            Instantiate(BulletPrefab, _bulletPoint.position, _bulletPoint.rotation).Init(velocity, true, _damage);
         }
         else
         {
@@ -51,7 +51,7 @@ public class PlayerGun : Gun
                 _reloadCanvas.alpha = 1;
                 StartCoroutine(Reloading());
             }
-            Instantiate(BulletPrefab, _bulletPoint.position, _bulletPoint.rotation).Init(velocity, _damage);
+            Instantiate(BulletPrefab, _bulletPoint.position, _bulletPoint.rotation).Init(velocity, false, _damage);
         }
 
         ShootEvent?.Invoke();

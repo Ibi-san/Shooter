@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour
     private int _damage;
     private bool _isRocket;
     
-    public void Init(Vector3 velocity, int damage = 0, bool rocket = false)
+    public void Init(Vector3 velocity, bool rocket = false, int damage = 0)
     {
         _damage = damage;
         _rigidbody.velocity = velocity;
