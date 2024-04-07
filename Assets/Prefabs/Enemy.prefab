@@ -135,6 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BulletPrefab: {fileID: 7495653152814660974, guid: 9fce2b844a4aec948a770cdea42ec85a, type: 3}
+  IsRocket: 0
 --- !u!114 &-6306594480524823251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -904,6 +905,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -0.0033
       objectReference: {fileID: 0}
+    - target: {fileID: 1989427579239467200, guid: 5b9e5150db7b2204d98b5f69a683d1e6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3783090178872861316, guid: 5b9e5150db7b2204d98b5f69a683d1e6, type: 3}
       propertyPath: m_Name
       value: Model
@@ -955,6 +960,14 @@ PrefabInstance:
     - target: {fileID: 7211167632888149006, guid: 5b9e5150db7b2204d98b5f69a683d1e6, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8681943004150528107, guid: 5b9e5150db7b2204d98b5f69a683d1e6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.395
+      objectReference: {fileID: 0}
+    - target: {fileID: 8681943004150528107, guid: 5b9e5150db7b2204d98b5f69a683d1e6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.084
       objectReference: {fileID: 0}
     - target: {fileID: 8681943004150528107, guid: 5b9e5150db7b2204d98b5f69a683d1e6, type: 3}
       propertyPath: m_ConstrainProportionsScale
