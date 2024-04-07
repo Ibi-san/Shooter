@@ -46,6 +46,8 @@ namespace Multiplayer
         
             _room.OnMessage<string>("Shoot", ApplyShoot);
             
+            _room.OnMessage<string>("Weapon", ApplyWeaponSwitch);
+            
             _room.OnMessage<string>("Crouch", ApplyCrouch);
         }
 
@@ -60,6 +62,20 @@ namespace Multiplayer
             }
         
             _enemies[shootInfo.key].Shoot(shootInfo);
+        }
+        
+        private void ApplyWeaponSwitch(string jsonWeaponInfo)
+        {
+            WeaponInfo weaponInfo = JsonUtility.FromJson<WeaponInfo>(jsonWeaponInfo);
+
+            if (_enemies.ContainsKey(weaponInfo.key) == false)
+            {
+                Debug.LogError("No enemy, but he tried to switch weapon");
+                return;
+            }
+
+            print(weaponInfo.weaponID);
+            _enemies[weaponInfo.key].SwitchWeapon(weaponInfo.weaponID);
         }
         
         private void ApplyCrouch(string jsonCrouchInfo)

@@ -48,6 +48,13 @@ public class EnemyController : MonoBehaviour
         
         _gun.Shoot(position, velocity);
     }
+    
+    public void SwitchWeapon(int weaponID)
+    {
+        Weapon weapon = (Weapon)weaponID;
+        _gun.IsRocket = weapon == Weapon.RocketLauncher;
+        _character.ChangeWeapon(weapon);
+    }
 
     public void Crouch(in bool isCrouch) => _character.SetCrouch(isCrouch);
 
@@ -59,6 +66,7 @@ public class EnemyController : MonoBehaviour
         _receivedTimeInterval.Add(interval);
         _receivedTimeInterval.RemoveAt(0);
     }
+
     internal void OnChange(List<DataChange> changes)
     {
         SaveReceivedTime();

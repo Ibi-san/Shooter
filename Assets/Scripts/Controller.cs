@@ -21,10 +21,13 @@ public class Controller : MonoBehaviour
         _hideCursor = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        _gun.Equip(Weapon.MachineGun);
     }
 
     private void Update()
     {
+        SwitchWeapon();
+        
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             _hideCursor = !_hideCursor;
@@ -73,6 +76,37 @@ public class Controller : MonoBehaviour
         }
 
         SendMove();
+    }
+
+    private void SwitchWeapon()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            _gun.Equip(Weapon.MachineGun);
+            SendWeapon(Weapon.MachineGun);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            _gun.Equip(Weapon.SniperRifle);
+            SendWeapon(Weapon.SniperRifle);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            _gun.Equip(Weapon.RocketLauncher);
+            SendWeapon(Weapon.RocketLauncher);
+        }
+    }
+
+    private void SendWeapon(Weapon weaponID)
+    {
+        WeaponInfo weaponInfo = new WeaponInfo();
+        weaponInfo.key = _multiplayerManager.GetSessionId();
+        weaponInfo.weaponID = (int)weaponID;
+        string jsonWeaponInfo = JsonUtility.ToJson(weaponInfo);
+        
+        _multiplayerManager.SendMessage("weapon", jsonWeaponInfo);
     }
 
     private void SendShoot(ref ShootInfo shootInfo)
@@ -163,4 +197,11 @@ public struct CrouchInfo
 {
     public string key;
     public bool isC;
+}
+
+[Serializable]
+public struct WeaponInfo
+{
+    public string key;
+    public int weaponID;
 }

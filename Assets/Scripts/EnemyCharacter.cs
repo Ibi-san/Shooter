@@ -8,6 +8,10 @@ public class EnemyCharacter : Character
     
     [SerializeField] private Health _health;
     [SerializeField] private Transform _head;
+    [SerializeField] private GameObject _currentWeapon;
+    [SerializeField] private GameObject _machineGun;
+    [SerializeField] private GameObject _sniperRifle;
+    [SerializeField] private GameObject _rocketLauncher;
     public Vector3 TargetPosition { get; private set; } = Vector3.zero;
     private float _velocityMagnitude;
 
@@ -82,5 +86,26 @@ public class EnemyCharacter : Character
             { "value", damage }
         };
         MultiplayerManager.Instance.SendMessage("damage", data);
+    }
+
+    public void ChangeWeapon(Weapon weapon)
+    {
+        _currentWeapon.SetActive(false);
+        
+        switch (weapon)
+        {
+            case Weapon.MachineGun:
+                _machineGun.SetActive(true);
+                _currentWeapon = _machineGun;
+                break;
+            case Weapon.SniperRifle:
+                _sniperRifle.SetActive(true);
+                _currentWeapon = _sniperRifle;
+                break;
+            case Weapon.RocketLauncher:
+                _rocketLauncher.SetActive(true);
+                _currentWeapon = _rocketLauncher;
+                break;
+        }
     }
 }
