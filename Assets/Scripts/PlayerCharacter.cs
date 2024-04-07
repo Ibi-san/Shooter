@@ -13,6 +13,7 @@ public class PlayerCharacter : Character
     [SerializeField] private float _minHeadAngle = -90;
     [SerializeField] private float _jumpForce = 50;
     [SerializeField] private CheckFly _checkFly;
+    [SerializeField] private CheckTop _checkTop;
     [SerializeField] private float _jumpDelay = 0.2f;
     private float _inputH;
     private float _inputV;
@@ -79,6 +80,23 @@ public class PlayerCharacter : Character
         velocity = _rigidbody.velocity;
         rotateX = _head.localEulerAngles.x;
         rotateY = transform.eulerAngles.y;
+    }
+    
+    public void TryCrouch()
+    {
+        //If player can't stand, he's already crouching. May cause bugs if he's in small room where roof near head. Need to fix
+        if (_checkTop.CanStand == false)
+            return;
+
+        Crouch();
+    }
+    
+    public void TryStandUp()
+    {
+        if (_checkTop.CanStand == false)
+            return;
+        
+        StandUp();
     }
 
     public void OnChange(List<DataChange> changes)

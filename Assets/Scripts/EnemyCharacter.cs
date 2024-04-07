@@ -64,6 +64,13 @@ public class EnemyCharacter : Character
     {
         transform.localEulerAngles = new Vector3(0, value, 0);
     }
+    
+    public void SetCrouch(bool isCrouch)
+    {
+        if (isCrouch) Crouch();
+        else StandUp();
+        CharacterAnimation.AnimateCrouch(isCrouch);
+    }
 
     public void ApplyDamage(int damage)
     {

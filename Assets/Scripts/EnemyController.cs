@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Colyseus.Schema;
 using Multiplayer;
@@ -49,6 +48,8 @@ public class EnemyController : MonoBehaviour
         
         _gun.Shoot(position, velocity);
     }
+
+    public void Crouch(in bool isCrouch) => _character.SetCrouch(isCrouch);
 
     private void SaveReceivedTime()
     {

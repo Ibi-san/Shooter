@@ -45,6 +45,8 @@ namespace Multiplayer
             _room.OnStateChange += OnChange;
         
             _room.OnMessage<string>("Shoot", ApplyShoot);
+            
+            _room.OnMessage<string>("Crouch", ApplyCrouch);
         }
 
         private void ApplyShoot(string jsonShootInfo)
@@ -58,6 +60,19 @@ namespace Multiplayer
             }
         
             _enemies[shootInfo.key].Shoot(shootInfo);
+        }
+        
+        private void ApplyCrouch(string jsonCrouchInfo)
+        {
+            CrouchInfo crouchInfo = JsonUtility.FromJson<CrouchInfo>(jsonCrouchInfo);
+        
+            if (_enemies.ContainsKey(crouchInfo.key) == false)
+            {
+                Debug.LogError("No enemy, but he tried to crouch");
+                return;
+            }
+        
+            _enemies[crouchInfo.key].Crouch(crouchInfo.isC);
         }
 
         private void OnChange(State state, bool isFirstState)

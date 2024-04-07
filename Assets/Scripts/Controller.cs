@@ -13,6 +13,8 @@ public class Controller : MonoBehaviour
     private MultiplayerManager _multiplayerManager;
     private bool _hold = false;
     private bool _hideCursor;
+    [SerializeField] private bool _crouchIsToogle;
+    private bool _isCrouching;
     private void Start()
     {
         _multiplayerManager = MultiplayerManager.Instance;
@@ -46,12 +48,29 @@ public class Controller : MonoBehaviour
         }
         
         bool space = Input.GetKeyDown(KeyCode.Space);
-        
+
+        if (_crouchIsToogle && Input.GetKeyDown(KeyCode.LeftControl))
+            _isCrouching = !_isCrouching;
+        else if (!_crouchIsToogle)
+            _isCrouching = Input.GetKey(KeyCode.LeftControl);
+
         _player.SetInput(h, v, mouseX * _mouseSensetivity);
         _player.RotateX(-mouseY * _mouseSensetivity);
+        
         if (space) _player.Jump();
         
         if (isShoot && _gun.TryShoot(out ShootInfo shootInfo)) SendShoot(ref shootInfo);
+
+        if (_isCrouching)
+        {
+            _player.TryCrouch();
+            SendCrouch(true);
+        }
+        else
+        {
+            _player.TryStandUp();
+            SendCrouch(false);
+        }
 
         SendMove();
     }
@@ -62,6 +81,19 @@ public class Controller : MonoBehaviour
         string json = JsonUtility.ToJson(shootInfo);
         
         _multiplayerManager.SendMessage("shoot", json);
+    }
+
+    private void SendCrouch(bool isCrouch)
+    {
+        CrouchInfo crouchInfo = new CrouchInfo()
+        {
+            key = _multiplayerManager.GetSessionId(),
+            isC = isCrouch,
+        };
+        crouchInfo.key = _multiplayerManager.GetSessionId();
+        string json = JsonUtility.ToJson(crouchInfo);
+        
+        _multiplayerManager.SendMessage("crouch", json);
     }
 
     private void SendMove()
@@ -124,4 +156,11 @@ public struct ShootInfo
     public float pX;
     public float pY;
     public float pZ;
+}
+
+[Serializable]
+public struct CrouchInfo
+{
+    public string key;
+    public bool isC;
 }
