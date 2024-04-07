@@ -311,6 +311,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 423919687589251725, guid: 61e20a7a817b70b45af90c443a894c29, type: 3}
+      propertyPath: _crouchIsToogle
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 423919687589251727, guid: 61e20a7a817b70b45af90c443a894c29, type: 3}
       propertyPath: m_RootOrder
       value: 3
