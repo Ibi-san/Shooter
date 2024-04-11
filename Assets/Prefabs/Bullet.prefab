@@ -116,6 +116,7 @@ MonoBehaviour:
   _rocketModel: {fileID: 622908611746894926}
   _radius: 2.5
   _explosionParticle: {fileID: 388748271049598937, guid: 4f1a9c92ac8980d469be3cca8974c678, type: 3}
+  _headshotParticle: {fileID: 9212915322429872175, guid: 6fd38777fa90f3844868d050421515ce, type: 3}
 --- !u!1 &2725833669748587372
 GameObject:
   m_ObjectHideFlags: 0

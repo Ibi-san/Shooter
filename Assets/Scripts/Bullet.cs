@@ -9,9 +9,10 @@ public class Bullet : MonoBehaviour
     [SerializeField] private GameObject _rocketModel;
     [SerializeField] private float _radius;
     [SerializeField] private GameObject _explosionParticle;
+    [SerializeField] private GameObject _headshotParticle;
     private int _damage;
     private bool _isRocket;
-    
+
     public void Init(Vector3 velocity, bool rocket = false, int damage = 0)
     {
         _damage = damage;
@@ -24,7 +25,7 @@ public class Bullet : MonoBehaviour
             _rocketModel.SetActive(true);
             _rigidbody.useGravity = true;
         }
-        
+
         StartCoroutine(DelayDestroy());
     }
 
@@ -48,25 +49,34 @@ public class Bullet : MonoBehaviour
         }
         else
         {
+            if (collision.collider.TryGetComponent(out EnemyHead enemyHead))
+            {
+                enemyHead.EnemyCharacter.ApplyDamage(_damage * 2);
+                SoundManager.Instance.PlayHeadshot();
+                Instantiate(_headshotParticle, transform.position, Quaternion.identity);
+            }
+
             if (collision.collider.TryGetComponent(out EnemyCharacter enemy))
+            {
                 enemy.ApplyDamage(_damage);
+            }
 
             Destroy();
         }
     }
-    
+
     private void Explode()
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, _radius);
         foreach (var hitCollider in hitColliders)
         {
             if (hitCollider.TryGetComponent(out EnemyCharacter enemy))
-                enemy.ApplyDamage(_damage);
+                enemy.ApplyDamage(_damage * 2);
         }
 
         Instantiate(_explosionParticle, transform.position, Quaternion.identity);
     }
-    
+
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {

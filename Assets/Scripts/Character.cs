@@ -11,15 +11,15 @@ public abstract class Character : MonoBehaviour
 
     public void Crouch()
     {
-        _collider.center = new Vector3(0, 0.75f, 0);
-        _collider.height = 1.5f;
+        _collider.center = new Vector3(0, 0.42f, -0.24f);
+        _collider.height = 1f;
         CharacterAnimation.AnimateCrouch(true);
     }
 
     public void StandUp()
     {
-        _collider.center = new Vector3(0, 1f, 0);
-        _collider.height = 2f;
+        _collider.center = new Vector3(0, 0.7f, 0);
+        _collider.height = 1.5f;
         CharacterAnimation.AnimateCrouch(false);
     }
 }

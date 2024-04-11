@@ -49,13 +49,13 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 423919687589251720}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 4dcce19a0df01474ab1696535b54a9c6, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 2
+  m_Height: 1.5
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 0.7, z: 0}
 --- !u!114 &8474567751470943271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,6 +70,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <maxHealth>k__BackingField: 10
   <speed>k__BackingField: 2
+  _collider: {fileID: 1592009343739722223}
+  CharacterAnimation: {fileID: 1979886780606942701}
+  <Speed>k__BackingField: 2
   _health: {fileID: 6746554065784390652}
   _head: {fileID: 5695779328742424235}
   _currentWeapon: {fileID: 1495911826386958930}
@@ -103,7 +106,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _checkFly: {fileID: 4665954924461739596}
-  _animator: {fileID: 7028866082166488908}
+  _footAnimator: {fileID: 7028866082166488908}
+  _bodyAnimator: {fileID: 7744402856337198085}
   _character: {fileID: 8474567751470943271}
 --- !u!114 &4665954924461739596
 MonoBehaviour:
@@ -957,13 +961,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4910384957521570809, guid: 5b9e5150db7b2204d98b5f69a683d1e6, type: 3}
+      propertyPath: m_TagString
+      value: Head
+      objectReference: {fileID: 0}
     - target: {fileID: 7211167632888149006, guid: 5b9e5150db7b2204d98b5f69a683d1e6, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8681943004150528107, guid: 5b9e5150db7b2204d98b5f69a683d1e6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.395
+      value: -0.376
       objectReference: {fileID: 0}
     - target: {fileID: 8681943004150528107, guid: 5b9e5150db7b2204d98b5f69a683d1e6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -995,6 +1003,31 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4597028247493687358, guid: 5b9e5150db7b2204d98b5f69a683d1e6, type: 3}
   m_PrefabInstance: {fileID: 1875588134780961814}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3352737516606383762 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3783090178872861316, guid: 5b9e5150db7b2204d98b5f69a683d1e6, type: 3}
+  m_PrefabInstance: {fileID: 1875588134780961814}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &7744402856337198085
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3352737516606383762}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 387774b90f197004f8f74f5ec32ac1e8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!4 &4280094085019279215 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2405660643607550841, guid: 5b9e5150db7b2204d98b5f69a683d1e6, type: 3}
@@ -1070,6 +1103,37 @@ MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 5150524850654449771, guid: 5b9e5150db7b2204d98b5f69a683d1e6, type: 3}
   m_PrefabInstance: {fileID: 1875588134780961814}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6783085567332593647 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4910384957521570809, guid: 5b9e5150db7b2204d98b5f69a683d1e6, type: 3}
+  m_PrefabInstance: {fileID: 1875588134780961814}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &2475765292040240801
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6783085567332593647}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.45
+  m_Center: {x: 0, y: 0.02, z: 0.42}
+--- !u!114 &4907930441423089150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6783085567332593647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c57746f48b234a60a5dc87a1e6f02038, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <EnemyCharacter>k__BackingField: {fileID: 8474567751470943271}
 --- !u!23 &6906543145219811213 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 5034906861454943131, guid: 5b9e5150db7b2204d98b5f69a683d1e6, type: 3}
